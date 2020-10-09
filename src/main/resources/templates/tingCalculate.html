@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <title>TingPaiCalculate</title>
+
+    <script type="text/javascript" th:inline="javascript">
+
+
+        function createButtonList(type) {
+            for (let i = 1; i < 10; i++) {
+                let name = i + type;
+                // let html = `<input type="button" value="${name}" onclick="addButton(${i}, ${type});">`;
+                let html = `<input type="button" value="${name}" th:onclick="javascript:addButton(${i}, ${type});`
+                    + "${cards.moPai(" + `${i}, ${type})};">`;
+                document.getElementById(type).innerHTML += html;
+                console.log(html);
+                let cards = [[${cards}]];
+
+                console.log(cards)
+            }
+        }
+        function addButton(value, type) {
+
+            let html = `<button type="button" onclick=this.remove();>${value}${type.id}</button>`;
+            document.getElementById("add").innerHTML += html;
+
+            // let cards = [[${cards}]];
+            //
+            // console.log(cards)
+            // console.log(document.getElementById("add"));
+
+
+        }
+
+        function showResult(result) {
+            document.getElementById("result").append(result);
+        }
+
+    </script>
+
+
+</head>
+
+
+<body>
+
+
+
+<h2>听牌计算器</h2>
+<div>
+    手牌:
+        <div id="add" class="btn-group" role="group" aria-label="Basic example">
+
+        </div>
+
+
+<!--    <br>-->
+    <p id="result">结果: </p>
+
+</div>
+
+<div id="万"></div>
+
+<div id="桶"></div>
+
+<div id="条"></div>
+
+
+<script>
+    createButtonList('万');
+    createButtonList('桶');
+    createButtonList('条');
+
+</script>
+
+<a type="button" value="5条" th:onclick="${cards.test()};">5条</a>
+<!--<p type="button" th:text="${cards.test()}" class="funny" />-->
+<br>
+
+<a class="btn btn-info col-1" onclick=showResult('woqu');>计算</a>
+<a th:href="@{/tingpai}" class="btn btn-info col-1">重置</a>
+
+</body>
+</html>
+
+
+
+
